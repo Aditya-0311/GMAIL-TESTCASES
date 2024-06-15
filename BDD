@@ -1,80 +1,86 @@
 
-BDD Format.
+BDD-Style Test Cases:
 
 Feature: Compose Email in Gmail
 
-  Scenario: Sending email successfully
-    Given the user is logged into Gmail
-    When the user clicks on the compose button
-    And fills in the subject "Incubyte"
-    And writes the body "Automation QA test for Incubyte"
-    And clicks on the send button
-    Then the email should be sent successfully
+Scenario 1: Compose email with valid subject and body
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I send the email
+  Then The email with specified subject and body should be sent successfully
 
-  Scenario: Error handling for empty subject field
-    Given the user is composing a new email
-    When the user tries to send the email without filling in the subject field
-    Then an error message should be displayed prompting the user to fill in the subject field
+Scenario 2: Attempt to send email without subject
+  Given I am logged into Gmail
+  When I compose a new email
+  And I leave the subject field blank
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I attempt to send the email
+  Then A validation error should appear indicating that the subject is required
 
-  Scenario: Error handling for empty body field
-    Given the user is composing a new email
-    When the user tries to send the email without filling in the body field
-    Then an error message should be displayed prompting the user to fill in the body field
+Scenario 3: Attempt to send email without body
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I leave the email body blank
+  And I attempt to send the email
+  Then A validation error should appear indicating that the email body is required
 
-  Scenario: Handling subject within character limit
-    Given the user is composing a new email
-    When the subject is within the character limit
-    Then the email should be sent successfully
+Scenario 4: Compose email with attachment
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I attach a file
+  And I send the email
+  Then The email with attachment, subject, and body should be sent successfully
 
-  Scenario: Handling body within character limit
-    Given the user is composing a new email
-    When the body is within the character limit
-    Then the email should be sent successfully
+Scenario 5: Attempt to send email to invalid recipient
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I enter an invalid email address in the recipient field
+  And I attempt to send the email
+  Then A validation error should appear indicating that the recipient address is invalid
 
-  Scenario: Error handling for subject exceeding character limit
-    Given the user is composing a new email
-    When the subject exceeds the character limit
-    Then an error message should be displayed prompting the user to shorten the subject
+Scenario 6: Send email with maximum characters in subject
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter maximum allowed characters in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I send the email
+  Then The email with maximum characters in subject should be sent successfully
 
-  Scenario: Error handling for body exceeding character limit
-    Given the user is composing a new email
-    When the body exceeds the character limit
-    Then an error message should be displayed prompting the user to shorten the body
+Scenario 7: Send email with maximum characters in body
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter maximum allowed characters in the email body
+  And I send the email
+  Then The email with maximum characters in body should be sent successfully
 
-  Scenario: Error handling for special characters in subject
-    Given the user is composing a new email
-    When the subject contains special characters
-    Then an error message should be displayed prompting the user to remove special characters from the subject
+Scenario 8: Attempt to send email with invalid attachment format
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I attach a file with invalid format
+  And I attempt to send the email
+  Then A validation error should appear indicating that the attachment format is invalid
 
-  Scenario: Error handling for special characters in body
-    Given the user is composing a new email
-    When the body contains special characters
-    Then an error message should be displayed prompting the user to remove special characters from the body
+Scenario 9: Attempt to send email with oversized attachment
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter "Incubyte" in the subject field
+  And I enter "Automation QA test for Incubyte" in the email body
+  And I attach a file exceeding the maximum size limit
+  And I attempt to send the email
+  Then A validation error should appear indicating that the attachment size exceeds the limit
 
-  Scenario: Sending email with attachments
-    Given the user is composing a new email
-    When the user attaches files
-    And sends the email
-    Then the email should be sent successfully with the attachments
-
-  Scenario: Handling attachment size limit
-    Given the user is composing a new email
-    When the attached file exceeds the size limit
-    Then an error message should be displayed prompting the user to attach a smaller file
-
-  Scenario: Sending email to multiple recipients
-    Given the user is composing a new email
-    When the user adds multiple recipients
-    And sends the email
-    Then the email should be sent successfully to all recipients
-
-  Scenario: Error handling for invalid email address
-    Given the user is composing a new email
-    When the recipient's email address is invalid
-    And tries to send the email
-    Then an error message should be displayed prompting the user to enter a valid email address
-
-  Scenario: Error handling for no internet connection
-    Given the user is composing a new email
-    When the user tries to send the email without internet connection
-    Then an error message should be displayed prompting the user to check internet connection.
+Scenario 10: Send email with special characters in subject
+  Given I am logged into Gmail
+  When I compose a new email
+  And I enter special characters in the subject field
+  And I enter "Automation
